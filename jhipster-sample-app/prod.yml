@@ -1,0 +1,20 @@
+version: '2'
+services:
+    sample-app:
+        image: jhipster/jhipster-sample-app
+        external_links:
+            - sample-mysql:mysql
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jhipstersampleapplication?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10
+        ports:
+            - 8080:8080
+    sample-mysql:
+        container_name: sample-mysql
+        image: mysql:5.7.13
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE=jhipstersampleapplication
+        command: mysqld --lower_case_table_names=1 --skip-ssl

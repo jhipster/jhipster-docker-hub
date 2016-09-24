@@ -1,0 +1,8 @@
+version: '2'
+services:
+    sample-app:
+        image: jhipster/jhipster-sample-app
+        environment:
+            - SPRING_PROFILES_ACTIVE=dev,swagger
+        ports:
+            - 8080:8080
