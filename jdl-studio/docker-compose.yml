@@ -1,0 +1,6 @@
+version: '2'
+services:
+    jdl-studio:
+        image: jhipster/jdl-studio
+        ports:
+            - 8888:80
