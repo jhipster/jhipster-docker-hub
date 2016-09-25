@@ -3,4 +3,4 @@ services:
     jdl-studio:
         image: jhipster/jdl-studio
         ports:
-            - 8888:80
+            - 18080:80
