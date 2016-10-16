@@ -1,0 +1,46 @@
+version: '2'
+services:
+    jhipstersamplegateway-app:
+        image: jhipster/jhipster-sample-app-gateway
+        external_links:
+            - jhipstersamplegateway-mysql:mysql
+            - jhipster-registry:registry
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
+            - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jhipstersamplegateway?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - SPRING_DATA_CASSANDRA_CONTACTPOINTS=cassandra
+            - JHIPSTER_SLEEP=30
+        ports:
+            - 8080:8080
+    jhipstersamplegateway-mysql:
+        container_name: jhipstersamplegateway-mysql
+        image: mysql:5.7.13
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE=jhipstersamplegateway
+        command: mysqld --lower_case_table_names=1 --skip-ssl
+    
+    jhipstersamplemicroservice-app:
+        image: jhipster/jhipster-sample-app-microservice
+        external_links:
+            - jhipstersamplemicroservice-postgresql:postgresql
+            - jhipster-registry:registry
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_CLOUD_CONFIG_URI=http://admin:admin@registry:8761/config
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/jhipsterSampleMicroservice
+            - JHIPSTER_SLEEP=10
+    jhipstersamplemicroservice-postgresql:
+        container_name: jhipstersamplemicroservice-postgresql
+        image: postgres:9.5.4
+        environment:
+            - POSTGRES_USER=jhipsterSampleMicroservice
+            - POSTGRES_PASSWORD=
+    
+    jhipster-registry:
+        extends:
+            file: jhipster-registry.yml
+            service: jhipster-registry
+
