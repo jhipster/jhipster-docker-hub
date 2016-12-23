@@ -13,4 +13,4 @@ services:
             - 8080:8080
     sample-mongodb:
         container_name: sample-mongodb
-        image: mongo:3.3.12
+        image: mongo:3.2.10
